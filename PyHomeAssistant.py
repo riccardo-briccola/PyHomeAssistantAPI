@@ -13,7 +13,7 @@ SERVICE_ENDPOINT= "/api/services/{}/{}" # domain, service
 # CLASS
 
 class HomeAssistant():
-    def __init__(self, address, port=consts.DEFAULT_PORT, ssl=False):
+    def __init__(self, address, port=DEFAULT_PORT, ssl=False):
         self.address = address
         self.port = port
         self.url = address + ":" + str(port) 
@@ -49,7 +49,7 @@ class HomeAssistant():
         return response
 
     def GetEntityState(self, entity_id):
-        req = self.Get(consts.ENTITY_STATE_ENDPOINT.format(entity_id))
+        req = self.Get(ENTITY_STATE_ENDPOINT.format(entity_id))
         if req.status_code == 200:
             return req.json()
         else:
@@ -57,7 +57,7 @@ class HomeAssistant():
             return None
             
     def SetEntityState(self, entity_id, payload):
-        req = self.Post(consts.ENTITY_STATE_ENDPOINT.format(entity_id),payload)
+        req = self.Post(ENTITY_STATE_ENDPOINT.format(entity_id),payload)
         if req.status_code == 200:
             return req.json()
         else:
@@ -65,7 +65,7 @@ class HomeAssistant():
             return None
             
     def CallService(self, domain, service, data):
-        req = self.Post(consts.SERVICE_ENDPOINT.format(domain,service),data)
+        req = self.Post(SERVICE_ENDPOINT.format(domain,service),data)
         if req.status_code == 200:
             return req.json()
             # The result will include any states that changed while the service was being executed, 
