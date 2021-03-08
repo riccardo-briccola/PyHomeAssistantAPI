@@ -1,3 +1,5 @@
+# Update @ https://github.com/richibrics/PyHomeAssistantAPI
+
 # MODULES
 
 import requests
@@ -16,12 +18,17 @@ class HomeAssistant():
     def __init__(self, address, port=DEFAULT_PORT, ssl=False):
         self.address = address
         self.port = port
-        self.url = address + ":" + str(port) 
 
-        if ssl:
-            self.url = "https://" + self.url
-        else:
-            self.url = "http://" + self.url
+        self.url = address
+
+        if not (":" + str(port)) in address: # If port not already in the address
+            self.url = address + ":" + str(port) 
+
+        if not "://" in address: # If http/https not already in the adress
+            if ssl:
+                self.url = "https://" + self.url
+            else:
+                self.url = "http://" + self.url
 
         self.token = None
 
